@@ -8,7 +8,7 @@ import requests  # download images
 
 class Meme:
     @staticmethod
-    def getMeme():
+    def get():
         """
         Gets random picture from 4ch and write it in the file.
         """
