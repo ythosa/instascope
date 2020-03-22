@@ -9,5 +9,6 @@
 -   install dependencies:
     -   `pip install saya`
     -   `pip install pillow`
+    -   `pip install beautifulsoup4`
 -   clone this repo: `git clone https://github.com/Ythosa/instascope`
 -   run: `python -m main.py`
