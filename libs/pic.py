@@ -13,19 +13,19 @@ FONT = ImageFont.truetype("data/DroidSans.ttf", 32 + 16)
 
 class Picture:
     @staticmethod
-    def create(name="pic.png", z="leo"):
+    def create(name="pic.png", z="libra"):
         # --- Parse content --- #
         horoscope_list = Horoscope.get_horoscope()
         Meme.get()
 
         # --- Params --- #
         width, height = 1080, 1920
-        memesize = int(width / 100 * 94)
+        memesize = 900
         title = horoscope_list[z][0]
         desc = "\n".join(wrap(horoscope_list[z][1], 41))
-        start_height = int(height / 100 * 1)
+        start_height = 200
 
-        back = Image.new("RGBA", (width, 1920), color="#282a36")
+        back = Image.new("RGBA", (width, height), color="#282a36")
         meme = Image.open("meme.png").resize((memesize, memesize))
         draw = ImageDraw.Draw(back)
 
@@ -38,8 +38,8 @@ class Picture:
         # --- Description --- #
         w1, h1 = draw.multiline_textsize(desc, font=FONT)
         draw.multiline_text(
-            (width//2 - w1//2, start_height + h),
+            (width//2 - w1//2, start_height + h + (350 - h1)),
             desc, font=FONT, fill="#f8f8f2", align="center")
 
-        back.paste(meme, (int(width / 100 * 3), height - memesize - start_height))
+        back.paste(meme, (90, 930))
         back.save(name)
