@@ -2,4 +2,4 @@
 from libs.meme import Meme
 
 
-Meme.getMeme()
+Meme.get()
