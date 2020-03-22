@@ -11,27 +11,6 @@ TITLE_FONT = ImageFont.truetype("data/DroidSans.ttf", 128)
 FONT = ImageFont.truetype("data/DroidSans.ttf", 32 + 16)
 
 
-<<<<<<< HEAD
-# take a horoscope list
-horoscope_list = Horoscope.get_horoscope()
-print(horoscope_list['leo'])
-# take a meme
-# Meme.get()
-#
-#
-# fon = Image.new('RGB', (1080, 1920), color='#FFFFFF')
-# font = ImageFont.truetype(r'data\DroidSans.ttf', 140)
-# meme = Image.open('meme.png', 'r')
-# meme = meme.resize((1000, 1000))
-#
-# fon.save('fon.jpg')
-# story_img = ImageDraw.Draw(fon)
-#
-# story_img.text((100, 100), horoscope_list['leo'][0], align="left", font=font, fill="#000000")
-# fon.paste(meme, (40, 880))
-#
-# fon.show()
-=======
 class Picture:
     @staticmethod
     def create(name="pic.png", z="leo"):
@@ -64,4 +43,3 @@ class Picture:
 
         back.paste(meme, (int(width / 100 * 3), height - memesize - start_height))
         back.save(name)
->>>>>>> 1be61277d29a406ee86aeffce6017dfaa6f112f2
