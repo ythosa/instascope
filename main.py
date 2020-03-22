@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from libs.meme import Meme
+from libs.pic import Picture
 
 
-Meme.get()
+Picture.create("filename.png", "virgo")
