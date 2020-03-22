@@ -7,8 +7,8 @@ path = "back.png"
 Picture.create(path, "virgo")
 
 # --- Auth --- #
-InstagramAPI = InstagramAPI("_ganjaclub", "lolka228")
-InstagramAPI.login()  # login
+api = InstagramAPI("_ganjaclub", "lolka228")
+api.login()  # login
 
 # --- Upload --- #
-InstagramAPI.uploadStoryPhoto(path)
+InstagramAPI.uploadStoryPhoto(api, path)
