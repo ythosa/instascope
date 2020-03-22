@@ -1,5 +1,8 @@
-# -*- coding: utf-8 -*-
-from libs.meme import Meme
+from InstagramAPI import InstagramAPI
 
+InstagramAPI = InstagramAPI("_ganjaclub", "lolka228")
+InstagramAPI.login()  # login
 
-Meme.get()
+photo_path = 'fon.jpg'
+caption = "Sample photo"
+InstagramAPI.uploadPhoto(photo_path, caption=caption)
