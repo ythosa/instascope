@@ -11,7 +11,7 @@ TITLE_FONT = ImageFont.truetype("data/DroidSans.ttf", 128)
 FONT = ImageFont.truetype("data/DroidSans.ttf", 32 + 16)
 
 
-<<<<<<< HEAD
+
 # take a horoscope list
 horoscope_list = Horoscope.get_horoscope()
 print(horoscope_list['leo'])
@@ -31,7 +31,6 @@ print(horoscope_list['leo'])
 # fon.paste(meme, (40, 880))
 #
 # fon.show()
-=======
 class Picture:
     @staticmethod
     def create(name="pic.png", z="leo"):
@@ -64,4 +63,3 @@ class Picture:
 
         back.paste(meme, (int(width / 100 * 3), height - memesize - start_height))
         back.save(name)
->>>>>>> 1be61277d29a406ee86aeffce6017dfaa6f112f2
