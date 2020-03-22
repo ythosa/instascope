@@ -3,7 +3,7 @@ from textwrap import wrap
 
 from PIL import Image, ImageDraw, ImageFont
 
-from .horoscope import Horoscope
+# from .horoscope import Horoscope
 from .meme import Meme
 
 
@@ -13,9 +13,9 @@ FONT = ImageFont.truetype("data/DroidSans.ttf", 32 + 16)
 
 class Picture:
     @staticmethod
-    def create(name="pic.png", z="libra"):
+    def create(horoscope_list, name="pic.png", z="libra"):
         # --- Parse content --- #
-        horoscope_list = Horoscope.get_horoscope()
+        # horoscope_list = Horoscope.get_horoscope()
         Meme.get()
 
         # --- Params --- #

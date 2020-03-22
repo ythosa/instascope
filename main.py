@@ -1,14 +1,10 @@
 # -*- coding: utf-8 -*-
-# from InstagramAPI import InstagramAPI
 from libs.pic import Picture
+from libs.horoscope import Horoscope
 
-path = "back.png"
+signs = Horoscope.get_horoscope()
 
-Picture.create(path, "leo")
-
-# --- Auth --- #
-# api = InstagramAPI("_ganjaclub", "lolka228")
-# api.login()  # login
-#
-# # --- Upload --- #
-# InstagramAPI.uploadStoryPhoto(api, path)
+# Generate pictures for each sign
+for sign in signs.keys():
+    path = "_" + sign + ".png"
+    Picture.create(signs, path, sign)

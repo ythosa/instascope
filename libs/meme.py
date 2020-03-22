@@ -2,6 +2,8 @@
 # author: Ethosa
 from random import randint, choice
 
+from collections import namedtuple
+
 from saya import Vk  # VK API
 import requests  # download images
 
@@ -12,9 +14,19 @@ class Meme:
         """
         Gets random picture from 4ch and write it in the file.
         """
+        publ = namedtuple('public', ['owner_id', 'album_id'])
+        publics = [
+            # List albums of memes
+            # publ(-45745333, '262436923'),
+            publ(-176864224, 'wall'),
+            publ(-88350989, 'wall'),
+            publ(-29606875, 'wall'),
+            publ(-138742149, 'wall')
+        ]
+        choiced_public = choice(publics)
         vk = Vk(token="99a11d3599a11d3599a11d354099ce5222999a199a11d35c78d50e3779b82feb9455cee")
-        photos = vk.photos.get(  # Gets all photos fro album
-            owner_id=-45745333, album_id=262436923,
+        photos = vk.photos.get(  # Gets all photos from album
+            owner_id=choiced_public.owner_id, album_id=choiced_public.album_id,
             rev=randint(0, 1), offset=randint(0, 500), count=1000)
         photo = choice(photos["response"]["items"])  # Gets random photo from photos list.
         w = h = 0
