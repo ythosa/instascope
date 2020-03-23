@@ -36,7 +36,7 @@ class Picture:
         # --- Description --- #
         w1, h1 = draw.multiline_textsize(desc, font=FONT)
         draw.multiline_text(
-            (width//2 - w1//2, start_height + h + 430 - h1),
+            (width//2 - w1//2, start_height + h + (470 - h1)//2),
             desc, font=FONT, fill="#f8f8f2", align="center")
         back.paste(meme, (90, 930))
         back.save(name)

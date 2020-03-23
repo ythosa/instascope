@@ -18,10 +18,10 @@ class Meme:
         publics = [
             # List albums of memes
             publ(-45745333, '262436923'),
+            publ(-45745333, '262436923'),
             publ(-176864224, 'wall'),
-            publ(-88350989, 'wall'),
             publ(-29606875, 'wall'),
-            publ(-138742149, 'wall')
+            publ(-144918406, 'wall')
         ]
         choiced_public = choice(publics)
         vk = Vk(token="99a11d3599a11d3599a11d354099ce5222999a199a11d35c78d50e3779b82feb9455cee")
