@@ -8,3 +8,6 @@ signs = Horoscope.get_horoscope()
 for sign in signs.keys():
     path = "_" + sign + ".png"
     Picture.create(signs, path, sign)
+
+
+# Picture.create(signs, "1111.png", "cancer")

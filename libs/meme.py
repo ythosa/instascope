@@ -17,7 +17,7 @@ class Meme:
         publ = namedtuple('public', ['owner_id', 'album_id'])
         publics = [
             # List albums of memes
-            # publ(-45745333, '262436923'),
+            publ(-45745333, '262436923'),
             publ(-176864224, 'wall'),
             publ(-88350989, 'wall'),
             publ(-29606875, 'wall'),
