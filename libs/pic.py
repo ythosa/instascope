@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
 from textwrap import wrap
+import os
 
 from PIL import Image, ImageDraw, ImageFont
 
 from .meme import Meme
+from .horoscope import Horoscope
 
 
 TITLE_FONT = ImageFont.truetype("data/DroidSans.ttf", 128)
@@ -14,7 +16,7 @@ class Picture:
     @staticmethod
     def create(horoscope_list, name="pic.png", z="libra"):
         # --- Parse content --- #
-        # horoscope_list = Horoscope.get_horoscope()
+        horoscope_list = Horoscope.get_horoscope(z)
         Meme.get()
 
         # --- Params --- #
@@ -40,3 +42,5 @@ class Picture:
             desc, font=FONT, fill="#f8f8f2", align="center")
         back.paste(meme, (90, 930))
         back.save(name)
+        if name != "meme.png":
+            os.remove("meme.png")

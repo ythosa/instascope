@@ -2,7 +2,7 @@
 from libs.pic import Picture
 from libs.horoscope import Horoscope
 
-signs = Horoscope.get_horoscope()
+signs = Horoscope.symbols
 
 # Generate pictures for each sign
 for sign in signs.keys():

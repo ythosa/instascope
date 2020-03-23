@@ -38,5 +38,11 @@ class Meme:
                 url = size["url"]
         if url:
             # Write photo in file, if available.
+            content = None
+            while not content:
+                try:
+                    content = requests.get(url).content
+                except:
+                    continue
             with open("meme.png", "wb") as f:
-                f.write(requests.get(url).content)
+                f.write(content)
