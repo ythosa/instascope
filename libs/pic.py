@@ -14,7 +14,7 @@ FONT = ImageFont.truetype("data/DroidSans.ttf", 32 + 16)
 
 class Picture:
     @staticmethod
-    def create(horoscope_list, name="pic.png", z="libra"):
+    def create(name="pic.png", z="libra"):
         # --- Parse content --- #
         horoscope_list = Horoscope.get_horoscope(z)
         Meme.get()

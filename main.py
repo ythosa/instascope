@@ -1,130 +1,76 @@
 # -*- coding: utf-8 -*-
-import asyncio
-import re
-
-# from saya import AVk, AUploader
-from telegram.ext import Updater, CommandHandler, MessageHandler, Filters
-from telegram import InputMediaPhoto
-
+import telegram
 from libs.pic import Picture
-from libs.horoscope import Horoscope
 
+# List of symbols
 symbols = {
-        "телец": "taurus",
-        "овен": "aries",
-        "близнецы": "gemini",
-        "рак": "cancer",
-        "лев": "leo",
-        "весы": "libra",
-        "стрелец": "sagittarius",
-        "козерог": "capricorn",
-        "водолей": "aquarius",
-        "рыбы": "pisces",
-        "дева": "virgo",
-        "скорпион": "scorpio",
-    }
+    "телец": "taurus",
+    "овен": "aries",
+    "близнецы": "gemini",
+    "рак": "cancer",
+    "лев": "leo",
+    "весы": "libra",
+    "стрелец": "sagittarius",
+    "козерог": "capricorn",
+    "водолей": "aquarius",
+    "рыбы": "pisces",
+    "дева": "virgo",
+    "скорпион": "scorpio",
+}
+
+# Create bot
+bot = telegram.Bot(token='1085045815:AAESWK5yzQTTsjDWBzkvYwdrkVK9rUgLAoQ')
 
 
-def generate_horoscope(text):
-    text = text.rstrip().split(' ')
-    if text[0] == 'horoscope':
-        if len(text) == 2:
-            if text[1] in symbols.values():
-                # return pic with this sign
-                pass
+# User Response Function
+def generate_answer(text, chat_id):
+    if text == '/help':
+        bot.send_message(chat_id=chat_id, text="Write <horoscope> to get horoscopes for all signs.\n"
+                                               "Write <horoscope some_sign> to get horoscope for this sign.\n"
+                                               "Write </signs> to get list of all signs.")
+    elif text == '/signs':
+        str_signs = ""
+        for k, v in symbols.items():
+            str_signs += "".join(str(k)+' - '+str(v)+'\n')
+        bot.send_message(chat_id=chat_id, text=str_signs)
+    else:
+        text = text.rstrip().split(' ')
+        if text[0] == 'horoscope':
+            if len(text) == 2:
+                if text[1] in symbols.values():
+                    # return pic with this sign
+                    sign = str(text[1])
+                    name_of_pic = '_'+sign+'.png'
+                    Picture.create(name_of_pic, sign)
+                    bot.send_document(chat_id=chat_id, document=open(name_of_pic, 'rb'))
+                else:
+                    # return wrong
+                    bot.send_message(chat_id=chat_id, text="Invalid request")
+            elif len(text) == 1:
+                # generate pic for all sings
+                for sign in symbols.values():
+                    Picture.create(name='_' + str(sign) + '.png', z=sign)
+                    bot.send_document(chat_id=chat_id, document=open('_' + str(sign) + '.png', 'rb'))
             else:
                 # return wrong
-                pass
-        elif len(text) == 1:
-            # generate pic for all sings
-            pass
+                bot.send_message(chat_id=chat_id, text="Invalid request")
         else:
             # return wrong
-            pass
-    else:
-        # return wrong
-        pass
+            bot.send_message(chat_id=chat_id, text="Invalid request")
 
 
-def start(update, context):
-    """Send a message when the command /start is issued."""
-    update.message.reply_text('Hello, I can generate horoscopes!')
+last_upd = 0
+chats_id = []  # todo need move to BD !!!!
 
-
-def help(update, context):
-    """Send a message when the command /help is issued."""
-    update.message.reply_text('Write "horoscope" to have horoscope for all signs.\n'
-                              'Write: "horoscope <some_sign>" to get horoscope for this sign.\n'
-                              'Horoscope signs: ["taurus", "aries", "gemini", "cancer",'
-                              '"leo", "libra", "sagittarius", "capricorn","aquarius","pisces","virgo","scorpio"].')
-
-
-def generate(update, context):
-    """Echo the user message."""
-    update.message.reply_text(generate_horoscope(update.message.text))
-    from io import BytesIO
-    bio = BytesIO()
-    bio.name = 'image.jpeg'
-    image.save(bio, 'JPEG')
-    bio.seek(0)
-    bot.send_photo(chat_id, photo=bio)
-
-
-def main():
-    """Start bot"""
-    updater = Updater("1085045815:AAESWK5yzQTTsjDWBzkvYwdrkVK9rUgLAoQ", use_context=True)
-    dp = updater.dispatcher
-    dp.add_handler(CommandHandler("start", start))
-    dp.add_handler(CommandHandler("help", help))
-    dp.add_handler(MessageHandler(Filters.text, generate))
-
-    updater.start_polling()
-    updater.idle()
-
-
-if __name__ == '__main__':
-    main()
-
-
-# # # # # # # # # # # # # # #
-
-# class MyAVk(AVk):
-
-#     async def message_new(self, event):
-#         # --- variables --- #
-#         self.event = event["object"]["message"]
-#         self.text = self.event["text"]
-#         self.peer_id = self.event["peer_id"]
-#         self.from_id = self.event["from_id"]
-#
-#         if re.match(self.horoscope_pattern, self.text, re.IGNORECASE):
-#             matched = re.findall(self.horoscope_pattern, self.text, re.IGNORECASE)[0].lower()
-#             print(matched)
-#             # --- create picture --- #
-#             name = "pic_for_%d_%d.png" % (self.peer_id, self.from_id)
-#             Picture.create(Horoscope.symbols, name, MyAVk.symbols[matched])
-#
-#             # --- upload image --- #
-#             photo = await self.uploader.message_photo(name, self.peer_id)
-#             print(photo)
-#             photo = AUploader.format(photo)
-#             print(photo)
-#
-#             # --- send message --- #
-#             await self.messages.send(
-#                 attachment=photo, random_id=0,
-#                 peer_id=self.peer_id)
-#
-#     async def main(self):
-#         self.pattern = "|".join(MyAVk.symbols.keys())
-#         self.horoscope_pattern = r"\A\s*гороскоп\s*(" + self.pattern + r")\s*\Z"
-#         print("launched")
-#         await self.start_listen()
-#
-#
-# if __name__ == '__main__':
-#     vk = MyAVk(
-#         token="",
-#         group_id=123123123)
-#     loop = asyncio.get_event_loop()
-#     loop.run_until_complete(vk.main())
+while True:
+    updates = bot.get_updates()
+    new_upd = len(updates)
+    if new_upd != last_upd:  # Update Check. If the length has not changed, do nothing
+        message_text = bot.get_updates()[-1].message.text  # Take text of message
+        chat_id = bot.get_updates()[-1].message.chat_id  # Take chat ID
+        if chat_id not in chats_id:  # If user first time have written to bot -> send "Hello Message"
+            bot.send_message(chat_id=chat_id, text="Hello! I can generate horoscopes!\nWrite </help> to learn more")
+            chats_id.append(chat_id)
+        else:
+            generate_answer(message_text, chat_id)  # User Response Function
+    last_upd = new_upd
