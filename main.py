@@ -59,20 +59,28 @@ def generate_answer(text, chat_id):
             else:
                 # return wrong
                 bot.send_message(chat_id=chat_id, text="Invalid request")
+    else:
+        # return wrong
+        bot.send_message(chat_id=chat_id, text="Invalid request")
 
 
 last_upd = 0
 chats_id = []  # todo need move to BD !!!!
 
-while True:
-    updates = bot.get_updates()
-    new_upd = len(updates)
-    if new_upd != last_upd:  # Update Check. If the length has not changed, do nothing
-        message_text = bot.get_updates()[-1].message.text  # Take text of message
-        chat_id = bot.get_updates()[-1].message.chat_id  # Take chat ID
-        if chat_id not in chats_id:  # If user first time have written to bot -> send "Hello Message"
-            bot.send_message(chat_id=chat_id, text="Hello! I can generate horoscopes!\nWrite </help> to learn more")
-            chats_id.append(chat_id)
-        else:
-            generate_answer(message_text, chat_id)  # User Response Function
-    last_upd = new_upd
+
+def main():
+    while True:
+        updates = bot.get_updates()
+        new_upd = len(updates)
+        if new_upd != last_upd:  # Update Check. If the length has not changed, do nothing
+            message_text = bot.get_updates()[-1].message.text  # Take text of message
+            chat_id = bot.get_updates()[-1].message.chat_id  # Take chat ID
+            if chat_id not in chats_id:  # If user first time have written to bot -> send "Hello Message"
+                bot.send_message(chat_id=chat_id, text="Hello! I can generate horoscopes!\nWrite </help> to learn more")
+                chats_id.append(chat_id)
+            else:
+                generate_answer(message_text, chat_id)  # User Response Function
+        last_upd = new_upd
+
+
+main()
