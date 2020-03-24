@@ -64,11 +64,9 @@ def generate_answer(text, chat_id):
         bot.send_message(chat_id=chat_id, text="Invalid request")
 
 
-last_upd = 0
-chats_id = []  # todo need move to BD !!!!
-
-
 def main():
+    last_upd = 0
+    chats_id = []  # todo need move to BD !!!!
     while True:
         updates = bot.get_updates()
         new_upd = len(updates)
