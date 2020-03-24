@@ -18,12 +18,9 @@ symbols = {
     "скорпион": "scorpio",
 }
 
-# Create bot
-bot = telegram.Bot(token='1085045815:AAESWK5yzQTTsjDWBzkvYwdrkVK9rUgLAoQ')
-
 
 # User Response Function
-def generate_answer(text, chat_id):
+def generate_answer(text, chat_id, bot):
     text = text.rstrip()
     if len(text) > 0:
         if text == '/help':
@@ -65,6 +62,8 @@ def generate_answer(text, chat_id):
 
 
 def main():
+    # Create bot
+    bot = telegram.Bot(token='1085045815:AAESWK5yzQTTsjDWBzkvYwdrkVK9rUgLAoQ')
     last_upd = 0
     chats_id = []  # todo need move to BD !!!!
     while True:
@@ -77,7 +76,7 @@ def main():
                 bot.send_message(chat_id=chat_id, text="Hello! I can generate horoscopes!\nWrite </help> to learn more")
                 chats_id.append(chat_id)
             else:
-                generate_answer(message_text, chat_id)  # User Response Function
+                generate_answer(message_text, chat_id, bot)  # User Response Function
         last_upd = new_upd
 
 
