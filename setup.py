@@ -16,4 +16,5 @@ setup(
     entry_points={
         'console_scripts':  ['main = main: main'],
     },
+    install_requires=['python-telegram-bot']
 )
