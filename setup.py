@@ -16,5 +16,5 @@ setup(
     entry_points={
         'console_scripts':  ['main = main: main'],
     },
-    install_requires=['python-telegram-bot']
+    install_requires=['python-telegram-bot', 'pillow', 'saya', 'beautifulsoup4']
 )

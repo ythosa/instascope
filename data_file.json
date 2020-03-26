@@ -1,1 +1,18 @@
-[]
+{
+    "text_updated": false,
+    "chats_id": [],
+    "horoscopes_text": {
+        "taurus": null,
+        "aries": null,
+        "gemini": null,
+        "cancer": null,
+        "leo": null,
+        "libra": null,
+        "sagittarius": null,
+        "capricorn": null,
+        "aquarius": null,
+        "pisces": null,
+        "virgo": null,
+        "scorpio": null
+    }
+}

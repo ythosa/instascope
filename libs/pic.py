@@ -6,6 +6,7 @@ from PIL import Image, ImageDraw, ImageFont
 
 from .meme import Meme
 from .horoscope import Horoscope
+from data import DataWork
 
 
 TITLE_FONT = ImageFont.truetype("data/DroidSans.ttf", 128)
@@ -16,7 +17,9 @@ class Picture:
     @staticmethod
     def create(name="pic.png", z="libra"):
         # --- Parse content --- #
+
         horoscope_list = Horoscope.get_horoscope(z)
+
         Meme.get()
 
         # --- Params --- #

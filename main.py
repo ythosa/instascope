@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 import telegram
 from libs.pic import Picture
-import json
+from data import DataWork
+
 
 # List of symbols
 symbols = {
@@ -18,22 +19,6 @@ symbols = {
     "дева": "virgo",
     "скорпион": "scorpio",
 }
-
-
-# Work with JSON data file
-class DataWork:
-    @staticmethod
-    def get_chats_id():
-        with open("data_file.json", "r") as data_file:
-            chats_id = json.load(data_file)
-        return list(chats_id)
-
-    @staticmethod
-    def push_to_chats_id(chat_id):
-        chats_id = DataWork.get_chats_id()
-        chats_id.append(chat_id)
-        with open("data_file.json", "w") as data_file:
-            json.dump(chats_id, data_file)
 
 
 # User Response Function
@@ -81,7 +66,10 @@ def generate_answer(text, chat_id, bot):
 def main():
     # Create bot
     bot = telegram.Bot(token='1085045815:AAEtUyc_AbRXGRMe_WpFh5jV_SLDlKgOYIE')
+
     last_upd = 0
+
+    DataWork.init_data()
     chats_id = DataWork.get_chats_id()
     while True:
         updates = bot.get_updates()
