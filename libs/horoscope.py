@@ -26,9 +26,10 @@ class Horoscope:
 
     @staticmethod
     def get_horoscope(symb="leo"):
-        if DataWork.get_now_date() == DataWork.get_updated_date():
+        if (DataWork.get_now_date() == DataWork.get_updated_date()) and (DataWork.get_symb_text(symb) is not None):
             # Take from data file
-            return DataWork.get_symb_text(symb)
+            Horoscope.symbols[symb][1] = DataWork.get_symb_text(symb)
+            return Horoscope.symbols
         else:
             # Generate new and write to data file
             # Parse text
@@ -36,5 +37,8 @@ class Horoscope:
             soup = BeautifulSoup(html_doc, features="html.parser")
             soup = str(soup.find('p'))[3:-4]
             Horoscope.symbols[symb][1] = "".join(re.split(r"([\!\?\.]+)", soup, 3)[:4])
+
             DataWork.set_symb_text(symb, Horoscope.symbols[symb][1])
+            DataWork.set_updated_date(DataWork.get_now_date())
+
             return Horoscope.symbols

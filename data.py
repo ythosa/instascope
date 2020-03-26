@@ -5,7 +5,7 @@ import datetime
 # Work with JSON data file
 class DataWork:
     data = {
-        'updated_date': False,
+        'updated_date': None,
         'chats_id': [],
         'horoscopes_text': {
             "taurus": None,
@@ -25,12 +25,12 @@ class DataWork:
 
     @staticmethod
     def init_data():
-        with open("data_file.json", "w") as data_file:
+        with open("data_file.json", "w", encoding="utf-8") as data_file:
             json.dump(DataWork.data, data_file, indent=4)
 
     @staticmethod
     def get_chats_id():
-        with open("data_file.json", "r") as data_file:
+        with open("data_file.json", "r", encoding="utf-8") as data_file:
             taken_data = dict(json.load(data_file))
         return taken_data['chats_id']
 
@@ -38,38 +38,38 @@ class DataWork:
     def push_to_chats_id(chat_id):
         chats_id = DataWork.get_chats_id()
         chats_id.append(chat_id)
-        with open("data_file.json", "r") as data_file:
+        with open("data_file.json", "r", encoding="utf-8") as data_file:
             taken_data = dict(json.load(data_file))
         taken_data['chats_id'] = chats_id
-        with open("data_file.json", "w") as data_file:
+        with open("data_file.json", "w", encoding="utf-8") as data_file:
             json.dump(taken_data, data_file, indent=4)
 
     @staticmethod
     def get_symb_text(symb):
-        with open("data_file.json", "r") as data_file:
+        with open("data_file.json", "r", encoding="utf-8") as data_file:
             taken_data = dict(json.load(data_file))
         return taken_data['horoscopes_text'][symb]
 
     @staticmethod
     def set_symb_text(symb, text):
-        with open("data_file.json", "r") as data_file:
+        with open("data_file.json", "r", encoding="utf-8") as data_file:
             taken_data = dict(json.load(data_file))
-        taken_data['horoscopes_text'][symb] = text
-        with open("data_file.json", "w") as data_file:
+        taken_data['horoscopes_text'][symb] = str(text)
+        with open("data_file.json", "w", encoding="utf-8") as data_file:
             json.dump(taken_data, data_file, indent=4)
 
     @staticmethod
     def get_updated_date():
-        with open("data_file.json", "r") as data_file:
+        with open("data_file.json", "r", encoding="utf-8") as data_file:
             taken_data = dict(json.load(data_file))
         return taken_data['updated_date']
 
     @staticmethod
     def set_updated_date(date):
-        with open("data_file.json", "r") as data_file:
+        with open("data_file.json", "r", encoding="utf-8") as data_file:
             taken_data = dict(json.load(data_file))
-        taken_data['horoscopes_text']['updated_date'] = date
-        with open("data_file.json", "w") as data_file:
+        taken_data['updated_date'] = date
+        with open("data_file.json", "w", encoding="utf-8") as data_file:
             json.dump(taken_data, data_file, indent=4)
 
     @staticmethod

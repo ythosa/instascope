@@ -66,14 +66,12 @@ def generate_answer(text, chat_id, bot):
 def main():
     # Create bot
     bot = telegram.Bot(token='1085045815:AAEtUyc_AbRXGRMe_WpFh5jV_SLDlKgOYIE')
-
     last_upd = 0
-
     DataWork.init_data()
-    chats_id = DataWork.get_chats_id()
     while True:
         updates = bot.get_updates()
         new_upd = len(updates)
+        chats_id = DataWork.get_chats_id()
         if new_upd != last_upd:  # Update Check. If the length has not changed, do nothing
             message_text = bot.get_updates()[-1].message.text  # Take text of message
             chat_id = bot.get_updates()[-1].message.chat_id  # Take chat ID

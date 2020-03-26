@@ -6,7 +6,6 @@ from PIL import Image, ImageDraw, ImageFont
 
 from .meme import Meme
 from .horoscope import Horoscope
-from data import DataWork
 
 
 TITLE_FONT = ImageFont.truetype("data/DroidSans.ttf", 128)
