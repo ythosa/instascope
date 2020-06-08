@@ -1,29 +1,32 @@
+<br>
+
 <h1 align="center">Instascope</h1>
 <div align="center">
 
----
-
-[![forthebadge made-with-python](http://ForTheBadge.com/images/badges/made-with-python.svg)](https://www.python.org/)
+[![Badge](https://img.shields.io/badge/Uses-Python-blue.svg?style=flat-square)]("Python")
+[![Badge](https://img.shields.io/badge/Open-Source-important.svg?style=flat-square)]("OpenSource")
+[![Badge](https://img.shields.io/badge/Made_with-Love-ff69b4.svg?style=flat-square)]("MadeWithLove")
     
-[![ForTheBadge built-with-love](http://ForTheBadge.com/images/badges/built-with-love.svg)](https://GitHub.com/Naereen/)
-
----
-
 </div>
 
-# Install
--   download [python 3.7 or high](https://python.org/download)
--   install dependencies:
+## Install
+-   Download [python 3.7 or high](https://python.org/download)
+-   Clone this repo: `git clone https://github.com/Ythosa/instascope`
+-   Install dependencies:
     -   `pip install saya`
     -   `pip install pillow`
     -   `pip install beautifulsoup4`
     -   `pip install python-telegram-bot`
--   clone this repo: `git clone https://github.com/Ythosa/instascope`
--   run: `python -m main.py`
+-   Run: `python -m main.py`
 
----
 
-# Description
+## Description
 -   Telegram bot-creator pictures with horoscope text for you symbol and
 funny picture (meme)
 -   You can install and run bot and write `/help` command in chat to learn more
+
+<br>
+
+<div align="center">
+  Copyright 2020 Ythosa / Ethosa
+</div>
