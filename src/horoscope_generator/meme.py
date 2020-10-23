@@ -4,7 +4,7 @@ from random import randint, choice
 import requests
 from saya import Vk
 
-from src import config
+from src.config.config import VK_TOKEN
 
 
 class Meme:
@@ -23,7 +23,7 @@ class Meme:
             publ(-144918406, 'wall')
         ]
         choiced_public = choice(publics)
-        vk = Vk(token=config.VK_TOKEN)
+        vk = Vk(token=VK_TOKEN)
         photos = vk.photos.get(  # Gets all photos from album
             owner_id=choiced_public.owner_id, album_id=choiced_public.album_id,
             rev=randint(0, 1), offset=randint(0, 500), count=1000)

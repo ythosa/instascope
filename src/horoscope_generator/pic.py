@@ -4,9 +4,9 @@ from textwrap import wrap
 
 from PIL import Image, ImageDraw, ImageFont
 
-from . import config
-from .horoscopetextgenerator import HoroscopeTextGenerator
-from .meme import Meme
+from src.config import config
+from src.horoscope_generator.horoscope_text_generator import HoroscopeTextGenerator
+from src.horoscope_generator.meme import Meme
 
 TITLE_FONT = ImageFont.truetype(config.FONT_PATH, 128)
 FONT = ImageFont.truetype(config.FONT_PATH, 32 + 16)

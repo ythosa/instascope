@@ -4,4 +4,6 @@ TELEGRAM_TOKEN = "1085045815:AAHYrjT04blrMpTlNke6wJCXqVqHbmkoReg"
 
 HOROSCOPE_GENERATOR = "https://1001goroskop.ru/?znak="
 
-FONT_PATH = "../fonts/DroidSans.ttf"
+FONT_PATH = "/home/ythosa/Projects/instascope/fonts/DroidSans.ttf"
+
+DATA_FILE = "/home/ythosa/Projects/instascope/src/data/data_file.json"

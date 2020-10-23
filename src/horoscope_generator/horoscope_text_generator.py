@@ -3,7 +3,7 @@ from urllib.request import urlopen
 
 from bs4 import BeautifulSoup
 
-from src.data import DataWork
+from src.data.data import DataWork
 
 
 class HoroscopeTextGenerator:

@@ -2,8 +2,8 @@ import logging
 
 from aiogram import Bot, Dispatcher, types, executor, filters
 
-from src import config
-from src.pic import Picture
+from src.config import config
+from src.horoscope_generator.pic import Picture
 
 # List of symbols
 symbols = {
