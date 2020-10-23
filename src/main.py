@@ -1,8 +1,8 @@
-# -*- coding: utf-8 -*-
 import telegram
-from libs.pic import Picture
-from data import DataWork
 
+from src import config
+from src.data import DataWork
+from src.pic import Picture
 
 # List of symbols
 symbols = {
@@ -21,6 +21,8 @@ symbols = {
 }
 
 
+# url = "https://1001goroskop.ru/?znak="
+
 # User Response Function
 def generate_answer(text, chat_id, bot):
     text = text.rstrip()
@@ -32,7 +34,7 @@ def generate_answer(text, chat_id, bot):
         elif text == '/signs':
             str_signs = ""
             for k, v in symbols.items():
-                str_signs += "".join(str(k)+' - '+str(v)+'\n')
+                str_signs += "".join(str(k) + ' - ' + str(v) + '\n')
             bot.send_message(chat_id=chat_id, text=str_signs)
         else:
             text = text.split(' ')
@@ -41,7 +43,7 @@ def generate_answer(text, chat_id, bot):
                     if text[1] in symbols.values():
                         # return pic with this sign
                         sign = str(text[1])
-                        name_of_pic = '_'+sign+'.png'
+                        name_of_pic = '_' + sign + '.png'
                         Picture.create(name_of_pic, sign)
                         bot.send_document(chat_id=chat_id, document=open(name_of_pic, 'rb'))
                     else:
@@ -65,7 +67,7 @@ def generate_answer(text, chat_id, bot):
 
 def main():
     # Create bot
-    bot = telegram.Bot(token='1085045815:AAEtUyc_AbRXGRMe_WpFh5jV_SLDlKgOYIE')
+    bot = telegram.Bot(token=config.TELEGRAM_TOKEN)
     last_upd = 0
     DataWork.init_data()
     while True:

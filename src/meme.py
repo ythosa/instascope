@@ -1,11 +1,10 @@
-# -*- coding: utf-8 -*-
-# author: Ethosa
+from collections import namedtuple
 from random import randint, choice
 
-from collections import namedtuple
-
-from saya import Vk  # VK API
 import requests  # download images
+from saya import Vk  # VK API
+
+from src import config
 
 
 class Meme:
@@ -24,7 +23,7 @@ class Meme:
             publ(-144918406, 'wall')
         ]
         choiced_public = choice(publics)
-        vk = Vk(token="99a11d3599a11d3599a11d354099ce5222999a199a11d35c78d50e3779b82feb9455cee")
+        vk = Vk(token=config.VK_TOKEN)
         photos = vk.photos.get(  # Gets all photos from album
             owner_id=choiced_public.owner_id, album_id=choiced_public.album_id,
             rev=randint(0, 1), offset=randint(0, 500), count=1000)
@@ -42,7 +41,7 @@ class Meme:
             while not content:
                 try:
                     content = requests.get(url).content
-                except:
+                except requests.exceptions.ConnectionError:
                     continue
             with open("meme.png", "wb") as f:
                 f.write(content)
