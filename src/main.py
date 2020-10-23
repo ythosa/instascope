@@ -36,8 +36,8 @@ async def send_welcome(message: types.Message):
     :param message:
     :return:
     """
-    await message.reply("Write <horoscope> to get horoscopes for all signs.\n"
-                        "Write <horoscope some_sign> to get horoscope for this sign.\n"
+    await message.reply("Write </help> to get some information.\n"
+                        "Write </horoscope_{some_sign}> to get horoscope for this sign.\n"
                         "Write </signs> to get list of all signs.")
 
 

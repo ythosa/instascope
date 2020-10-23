@@ -1,8 +1,8 @@
 from collections import namedtuple
 from random import randint, choice
 
-import requests  # download images
-from saya import Vk  # VK API
+import requests
+from saya import Vk
 
 from src import config
 
@@ -11,7 +11,7 @@ class Meme:
     @staticmethod
     def get():
         """
-        Gets random picture from 4ch and write it in the file.
+        Gets random picture from random public page and writes it in the file.
         """
         publ = namedtuple('public', ['owner_id', 'album_id'])
         publics = [

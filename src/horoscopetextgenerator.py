@@ -31,17 +31,17 @@ class HoroscopeTextGenerator:
 
         if (DataWork.get_now_date() == DataWork.get_updated_date()) and (DataWork.get_symb_text(symb) is not None):
             # Take from data file
-            HoroscopeTextGenerator._symbols[symb][1] = DataWork.get_symb_text(symb)
-            return HoroscopeTextGenerator._symbols
+            self._symbols[symb][1] = DataWork.get_symb_text(symb)
+            return self._symbols
         else:
             # Generate new and write to data file
             # Parse text
             html_doc = urlopen(self._url + symb).read()
             soup = BeautifulSoup(html_doc, features="html.parser")
             soup = str(soup.find('p'))[3:-4]
-            HoroscopeTextGenerator._symbols[symb][1] = "".join(re.split(r"([!?.]+)", soup, 3)[:4])
+            self._symbols[symb][1] = "".join(re.split(r"([!?.]+)", soup, 3)[:4])
 
-            DataWork.set_symb_text(symb, HoroscopeTextGenerator._symbols[symb][1])
+            DataWork.set_symb_text(symb, self._symbols[symb][1])
             DataWork.set_updated_date(DataWork.get_now_date())
 
             return self._symbols
