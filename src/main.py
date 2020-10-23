@@ -1,7 +1,8 @@
-import telegram
+import logging
+
+from aiogram import Bot, Dispatcher, types, executor, filters
 
 from src import config
-from src.data import DataWork
 from src.pic import Picture
 
 # List of symbols
@@ -20,69 +21,57 @@ symbols = {
     "скорпион": "scorpio",
 }
 
+# Configure logging
+logging.basicConfig(level=logging.INFO)
 
-# url = "https://1001goroskop.ru/?znak="
-
-# User Response Function
-def generate_answer(text, chat_id, bot):
-    text = text.rstrip()
-    if len(text) > 0:
-        if text == '/help':
-            bot.send_message(chat_id=chat_id, text="Write <horoscope> to get horoscopes for all signs.\n"
-                                                   "Write <horoscope some_sign> to get horoscope for this sign.\n"
-                                                   "Write </signs> to get list of all signs.")
-        elif text == '/signs':
-            str_signs = ""
-            for k, v in symbols.items():
-                str_signs += "".join(str(k) + ' - ' + str(v) + '\n')
-            bot.send_message(chat_id=chat_id, text=str_signs)
-        else:
-            text = text.split(' ')
-            if text[0] == 'horoscope':
-                if len(text) == 2:
-                    if text[1] in symbols.values():
-                        # return pic with this sign
-                        sign = str(text[1])
-                        name_of_pic = '_' + sign + '.png'
-                        Picture.create(name_of_pic, sign)
-                        bot.send_document(chat_id=chat_id, document=open(name_of_pic, 'rb'))
-                    else:
-                        # return wrong
-                        bot.send_message(chat_id=chat_id, text="Invalid request")
-                elif len(text) == 1:
-                    # generate pic for all sings
-                    for sign in symbols.values():
-                        Picture.create(name='_' + str(sign) + '.png', z=sign)
-                        bot.send_document(chat_id=chat_id, document=open('_' + str(sign) + '.png', 'rb'))
-                else:
-                    # return wrong
-                    bot.send_message(chat_id=chat_id, text="Invalid request")
-            else:
-                # return wrong
-                bot.send_message(chat_id=chat_id, text="Invalid request")
-    else:
-        # return wrong
-        bot.send_message(chat_id=chat_id, text="Invalid request")
+# Initialize bot and dispatcher
+bot = Bot(token=config.TELEGRAM_TOKEN)
+dp = Dispatcher(bot)
 
 
-def main():
-    # Create bot
-    bot = telegram.Bot(token=config.TELEGRAM_TOKEN)
-    last_upd = 0
-    DataWork.init_data()
-    while True:
-        updates = bot.get_updates()
-        new_upd = len(updates)
-        chats_id = DataWork.get_chats_id()
-        if new_upd != last_upd:  # Update Check. If the length has not changed, do nothing
-            message_text = bot.get_updates()[-1].message.text  # Take text of message
-            chat_id = bot.get_updates()[-1].message.chat_id  # Take chat ID
-            if chat_id not in chats_id:  # If user first time have written to bot -> send "Hello Message"
-                bot.send_message(chat_id=chat_id, text="Hello! I can generate horoscopes!\nWrite </help> to learn more")
-                DataWork.push_to_chats_id(chat_id)
-            else:
-                generate_answer(message_text, chat_id, bot)  # User Response Function
-        last_upd = new_upd
+@dp.message_handler(commands=['start', 'help'])
+async def send_welcome(message: types.Message):
+    """
+    This handler will be called when user sends `/start` or `/help` command
+    :param message:
+    :return:
+    """
+    await message.reply("Write <horoscope> to get horoscopes for all signs.\n"
+                        "Write <horoscope some_sign> to get horoscope for this sign.\n"
+                        "Write </signs> to get list of all signs.")
 
 
-main()
+@dp.message_handler(commands=['sings'])
+async def send_available_sings(message: types.Message):
+    """
+    This handler will be called when user sends `/sings` command
+    :param message:
+    :return:
+    """
+    str_signs = ""
+    for k, v in symbols.items():
+        str_signs += "".join(str(k) + ' - ' + str(v) + '\n')
+    await message.reply(str_signs)
+
+
+@dp.message_handler(filters.RegexpCommandsFilter(regexp_commands=['horoscope_([a-z]+)']))
+async def send_horoscope(message: types.Message, regexp_command):
+    """
+    This handler will be called when user sends `/horoscope {sign}` command
+    :param message:
+    :param regexp_command:
+    :return:
+    """
+    sign = regexp_command.group(1)
+    if sign not in symbols.values():
+        await message.reply('Invalid sign')
+        return
+
+    name_of_pic = '_' + sign + '.png'
+    Picture.create(name_of_pic, sign)
+
+    await message.reply_document(open(name_of_pic, 'rb'))
+
+
+if __name__ == "__main__":
+    executor.start_polling(dp, skip_updates=True)

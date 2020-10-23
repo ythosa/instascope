@@ -8,8 +8,8 @@ from . import config
 from .horoscopetextgenerator import HoroscopeTextGenerator
 from .meme import Meme
 
-TITLE_FONT = ImageFont.truetype("data/DroidSans.ttf", 128)
-FONT = ImageFont.truetype("data/DroidSans.ttf", 32 + 16)
+TITLE_FONT = ImageFont.truetype(config.FONT_PATH, 128)
+FONT = ImageFont.truetype(config.FONT_PATH, 32 + 16)
 
 
 class Picture:
