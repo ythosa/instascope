@@ -2,7 +2,7 @@ VK_TOKEN = "99a11d3599a11d3599a11d354099ce5222999a199a11d35c78d50e3779b82feb9455
 
 TELEGRAM_TOKEN = "1085045815:AAHYrjT04blrMpTlNke6wJCXqVqHbmkoReg"
 
-HOROSCOPE_GENERATOR = "https://1001goroskop.ru/?znak="
+HOROSCOPE_GENERATOR_URL = "https://1001goroskop.ru/?znak="
 
 FONT_PATH = "/home/ythosa/Projects/instascope/fonts/DroidSans.ttf"
 
