@@ -3,23 +3,9 @@ import logging
 from aiogram import Bot, Dispatcher, types, executor, filters
 
 from src.config import config
+from src.config.config import CONFIG_FILE_PATH
+from src.horoscope_generator.horoscope_list import HoroscopeList
 from src.horoscope_generator.pic import Picture
-
-# List of symbols
-symbols = {
-    "телец": "taurus",
-    "овен": "aries",
-    "близнецы": "gemini",
-    "рак": "cancer",
-    "лев": "leo",
-    "весы": "libra",
-    "стрелец": "sagittarius",
-    "козерог": "capricorn",
-    "водолей": "aquarius",
-    "рыбы": "pisces",
-    "дева": "virgo",
-    "скорпион": "scorpio",
-}
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -41,17 +27,16 @@ async def send_welcome(message: types.Message):
                         "Write </signs> to get list of all signs.")
 
 
-@dp.message_handler(commands=['sings'])
+@dp.message_handler(commands=['signs'])
 async def send_available_sings(message: types.Message):
     """
     This handler will be called when user sends `/sings` command
     :param message:
     :return:
     """
-    str_signs = ""
-    for k, v in symbols.items():
-        str_signs += "".join(str(k) + ' - ' + str(v) + '\n')
-    await message.reply(str_signs)
+    horoscope_list = HoroscopeList()
+    horoscope_list.configure_from_yml(CONFIG_FILE_PATH)
+    await message.reply(str(horoscope_list))
 
 
 @dp.message_handler(filters.RegexpCommandsFilter(regexp_commands=['horoscope_([a-z]+)']))
@@ -63,12 +48,14 @@ async def send_horoscope(message: types.Message, regexp_command):
     :return:
     """
     sign = regexp_command.group(1)
-    if sign not in symbols.values():
+    horoscope_list = HoroscopeList()
+    horoscope_list.configure_from_yml(CONFIG_FILE_PATH)
+    if horoscope_list.is_contains(sign):
         await message.reply('Invalid sign')
         return
 
     name_of_pic = '_' + sign + '.png'
-    Picture.create(name_of_pic, sign)
+    Picture.create(f"./_results/_{sign}.png", sign)
 
     await message.reply_document(open(name_of_pic, 'rb'))
 

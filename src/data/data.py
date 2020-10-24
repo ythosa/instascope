@@ -3,6 +3,7 @@ import json
 
 from src.config.config import DATA_FILE
 
+
 # Work with JSON data file
 class DataWork:
     data = {

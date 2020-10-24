@@ -7,3 +7,5 @@ HOROSCOPE_GENERATOR = "https://1001goroskop.ru/?znak="
 FONT_PATH = "/home/ythosa/Projects/instascope/fonts/DroidSans.ttf"
 
 DATA_FILE = "/home/ythosa/Projects/instascope/src/data/data_file.json"
+
+CONFIG_FILE_PATH = "/home/ythosa/Projects/instascope/src/config/config.yaml"
