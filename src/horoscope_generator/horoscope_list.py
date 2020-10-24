@@ -2,6 +2,7 @@ from typing import List
 
 import yaml
 
+from src.horoscope_generator.horoscope import Horoscope
 from src.horoscope_generator.horoscope_sign import HoroscopeSign
 
 
@@ -25,3 +26,16 @@ class HoroscopeList:
             if i.en_translate == sign or i.ru_translate == sign:
                 return True
         return False
+
+    def _get_sign_index(self, sign: str):
+        index = 0
+        for s in self._sign_list:
+            if s.ru_translate == sign or s.en_translate == sign:
+                break
+            index += 1
+        return index
+
+    def add_horoscope_for_sign(self, sign, text):
+        index = self._get_sign_index(sign)
+        horoscope_sign = self._sign_list[index]
+        horoscope_sign.horoscope = Horoscope(title=horoscope_sign.ru_translate, description=text)

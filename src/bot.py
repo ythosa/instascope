@@ -50,14 +50,14 @@ async def send_horoscope(message: types.Message, regexp_command):
     sign = regexp_command.group(1)
     horoscope_list = HoroscopeList()
     horoscope_list.configure_from_yml(CONFIG_FILE_PATH)
-    if horoscope_list.is_contains(sign):
+    if not horoscope_list.is_contains(sign):
         await message.reply('Invalid sign')
         return
 
-    name_of_pic = '_' + sign + '.png'
-    Picture.create(f"./_results/_{sign}.png", sign)
+    picture_path = f"./_results/_{sign}.png"
+    Picture.create(picture_path, sign)
 
-    await message.reply_document(open(name_of_pic, 'rb'))
+    await message.reply_document(open(picture_path, 'rb'))
 
 
 if __name__ == "__main__":
