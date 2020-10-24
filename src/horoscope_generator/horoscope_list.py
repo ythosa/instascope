@@ -27,10 +27,15 @@ class HoroscopeList:
                 return True
         return False
 
+    def get_ru_translate_of_sign(self, sign):
+        for s in self._sign_list:
+            if sign == s:
+                return s.ru_translate
+
     def _get_sign_index(self, sign: str):
         index = 0
         for s in self._sign_list:
-            if s.ru_translate == sign or s.en_translate == sign:
+            if s == sign:
                 break
             index += 1
         return index

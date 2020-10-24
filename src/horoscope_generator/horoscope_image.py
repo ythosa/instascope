@@ -11,7 +11,7 @@ TITLE_FONT = ImageFont.truetype(config.FONT_PATH, 128)
 FONT = ImageFont.truetype(config.FONT_PATH, 32 + 16)
 
 
-class Picture:
+class HoroscopeImage:
     @staticmethod
     def create(name="pic.png", z="libra"):
         # Parse content

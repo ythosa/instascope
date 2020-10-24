@@ -22,6 +22,9 @@ class HoroscopeTextGenerator:
         html_doc = urlopen(self._url + sign).read()
         soup = BeautifulSoup(html_doc, features="html.parser")
         soup = str(soup.find('p'))[3:-4]
+
         horoscope = "".join(re.split(r"([!?.]+)", soup, 3)[:4])
 
-        return Horoscope(sign, horoscope)
+        sign = self._symbols.get_ru_translate_of_sign(sign)
+
+        return Horoscope(str(sign).capitalize(), horoscope)
