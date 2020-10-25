@@ -4,6 +4,7 @@ from aiogram import Bot, Dispatcher, types, executor, filters
 
 from src.config import config
 from src.config.config import CONFIG_FILE_PATH
+from src.data.data import DataWorker
 from src.horoscope_generator.horoscope_image import HoroscopeImageCreator
 from src.horoscope_generator.horoscope_list import HoroscopeList
 
@@ -14,9 +15,15 @@ logging.basicConfig(level=logging.INFO)
 bot = Bot(token=config.TELEGRAM_TOKEN)
 dp = Dispatcher(bot)
 
+# Init data worker
+dataWorker = DataWorker()
+
+# Init horoscope_list
 horoscope_list = HoroscopeList()
 horoscope_list.configure_from_yml(CONFIG_FILE_PATH)
-horoscope_image_creator = HoroscopeImageCreator(horoscope_list)
+
+# Init horoscope image creator
+horoscope_image_creator = HoroscopeImageCreator(horoscope_list, dataWorker)
 
 
 @dp.message_handler(commands=['start', 'help'])

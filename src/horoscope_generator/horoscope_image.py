@@ -11,6 +11,7 @@ from bs4 import BeautifulSoup
 from saya import Vk
 
 from src.config import config
+from src.data.data import DataWorker
 from src.horoscope_generator.horoscope import Horoscope
 from src.horoscope_generator.horoscope_list import HoroscopeList
 
@@ -29,8 +30,9 @@ class HoroscopeImageCreator:
         public_page(-144918406, 'wall')
     ]
 
-    def __init__(self, horoscope_list: HoroscopeList):
+    def __init__(self, horoscope_list: HoroscopeList, data_worker: DataWorker):
         self.horoscope_list = horoscope_list
+        self._dataWorker = data_worker
 
     def create(self, name="pic.png", sign="libra"):
         # Parse content
@@ -97,12 +99,19 @@ class HoroscopeImageCreator:
         if not self.horoscope_list.is_contains(sign):
             raise ValueError("passed symbol must be one of horoscope symbols")
 
+        sign = self.horoscope_list.get_en_translate_of_sign(sign)
+
+        horoscope = self._dataWorker.get_horoscope_for_sign(sign)
+        if horoscope is not None:
+            sign = self.horoscope_list.get_ru_translate_of_sign(sign)
+            return Horoscope(str(sign).capitalize(), horoscope)
+
         html_doc = urlopen(url + sign).read()
         soup = BeautifulSoup(html_doc, features="html.parser")
         soup = str(soup.find('p'))[3:-4]
 
         horoscope = "".join(re.split(r"([!?.]+)", soup, 3)[:4])
-
+        self._dataWorker.update_sign_horoscope(sign, horoscope)
         sign = self.horoscope_list.get_ru_translate_of_sign(sign)
 
         return Horoscope(str(sign).capitalize(), horoscope)

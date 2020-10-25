@@ -32,6 +32,11 @@ class HoroscopeList:
             if sign == s:
                 return s.ru_translate
 
+    def get_en_translate_of_sign(self, sign):
+        for s in self._sign_list:
+            if sign == s:
+                return s.en_translate
+
     def _get_sign_index(self, sign: str):
         index = 0
         for s in self._sign_list:
@@ -39,6 +44,12 @@ class HoroscopeList:
                 break
             index += 1
         return index
+
+    def get_ru_translate_signs(self):
+        return [s.ru_translate for s in self._sign_list]
+
+    def get_en_translate_signs(self):
+        return [s.en_translate for s in self._sign_list]
 
     def add_horoscope_for_sign(self, sign, text):
         index = self._get_sign_index(sign)
