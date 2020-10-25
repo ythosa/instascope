@@ -14,41 +14,61 @@ class HoroscopeList:
     def __str__(self):
         return "\n".join([str(h) for h in self._sign_list])
 
-    def add_sign(self, sign: HoroscopeSign):
-        self._sign_list.append(sign)
-
-    def is_contains(self, sign: str) -> bool:
+    def is_contains(self, sign_name: str) -> bool:
+        """
+        Returns true is sign with name equals sign_name contains in self._sign_list
+        :param sign_name: name of finding sign
+        :return: is sign contains
+        """
         for i in self._sign_list:
-            if i.en_translate == sign or i.ru_translate == sign:
+            if i.en_translate == sign_name or i.ru_translate == sign_name:
                 return True
 
         return False
 
-    def get_ru_translate_of_sign(self, sign):
+    def get_ru_translate_of_sign(self, sign_name: str) -> str:
+        """
+        Returns russian translate of passed sign_name
+        :param sign_name:
+        :return:
+        """
         for s in self._sign_list:
-            if sign == s:
+            if sign_name == s:
                 return s.ru_translate
 
-    def get_en_translate_of_sign(self, sign):
+    def get_en_translate_of_sign(self, sign_name: str) -> str:
+        """
+        Returns english translate of passed sign_name
+        :param sign_name:
+        :return:
+        """
         for s in self._sign_list:
-            if sign == s:
+            if sign_name == s:
                 return s.en_translate
 
-    def _get_sign_index(self, sign: str):
+    def _get_sign_index(self, sign_name: str) -> int:
+        """
+        Returns index of passed sign_name in _sign_list
+        :param sign_name:
+        :return:
+        """
         index = 0
         for s in self._sign_list:
-            if s == sign:
+            if s == sign_name:
                 break
             index += 1
         return index
 
-    def get_ru_translate_signs(self):
+    def get_ru_translate_signs(self) -> List[str]:
+        """
+        Returns all signs translated to russian
+        :return:
+        """
         return [s.ru_translate for s in self._sign_list]
 
-    def get_en_translate_signs(self):
+    def get_en_translate_signs(self) -> List[str]:
+        """
+        Returns all signs translated to english
+        :return:
+        """
         return [s.en_translate for s in self._sign_list]
-
-    def add_horoscope_for_sign(self, sign, text):
-        index = self._get_sign_index(sign)
-        horoscope_sign = self._sign_list[index]
-        horoscope_sign.horoscope = Horoscope(title=horoscope_sign.ru_translate, description=text)
