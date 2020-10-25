@@ -18,7 +18,7 @@ DATA_FILE = "/home/ythosa/Projects/instascope/src/data/data_file.json"
 CONFIG_FILE_PATH = "/home/ythosa/Projects/instascope/src/config/config.yaml"
 
 
-def _parse_yaml():
+def _parse_yaml() -> dict:
     with open(CONFIG_FILE_PATH) as f:
         data = yaml.load(f, Loader=yaml.FullLoader)
     return data
@@ -28,15 +28,17 @@ CONFIG = _parse_yaml()
 
 
 def get_horoscope_signs() -> List[HoroscopeSign]:
-    horoscope_signs = []
-    for ru, en in CONFIG['signs']:
+    horoscope_signs: List[HoroscopeSign] = []
+    for ru, en in dict(CONFIG['signs']).items():
         horoscope_signs.append(HoroscopeSign(ru, en))
+
     return horoscope_signs
 
 
 def get_public_pages() -> List[PublicPage]:
     public_pages: List[PublicPage] = []
-    for name, bio in CONFIG['public_pages']:
+    for name, bio in dict(CONFIG['public_pages']).items():
         public_pages.append(
-            PublicPage(_name=name, owner_id=int(bio['owner_id']), album_id=bio['album_id']))
+            PublicPage(name=name, owner_id=int(bio['owner_id']), album_id=bio['album_id']))
+
     return public_pages

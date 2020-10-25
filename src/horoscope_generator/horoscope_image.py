@@ -24,7 +24,7 @@ class HoroscopeImageCreator:
         self._dataWorker = data_worker
         self.public_pages = config.get_public_pages()
 
-    def create(self, name="pic.png", sign="libra"):
+    def create(self, name: str = "pic.png", sign: str = "libra"):
         # Parse content
         (title, description) = self.get_horoscope(sign, config.HOROSCOPE_GENERATOR_URL)
 
@@ -85,7 +85,7 @@ class HoroscopeImageCreator:
             with open(meme_path, "wb") as f:
                 f.write(content)
 
-    def get_horoscope(self, sign, url) -> Horoscope:
+    def get_horoscope(self, sign: str, url: str) -> Horoscope:
         if not self.horoscope_list.is_contains(sign):
             raise ValueError("passed symbol must be one of horoscope symbols")
 

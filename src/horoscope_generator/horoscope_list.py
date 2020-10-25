@@ -11,16 +11,17 @@ class HoroscopeList:
     def __init__(self):
         self._sign_list = config.get_horoscope_signs()
 
-    def add_sign(self, sign: HoroscopeSign):
-        self._sign_list.append(sign)
-
     def __str__(self):
         return "\n".join([str(h) for h in self._sign_list])
+
+    def add_sign(self, sign: HoroscopeSign):
+        self._sign_list.append(sign)
 
     def is_contains(self, sign: str) -> bool:
         for i in self._sign_list:
             if i.en_translate == sign or i.ru_translate == sign:
                 return True
+
         return False
 
     def get_ru_translate_of_sign(self, sign):
