@@ -3,12 +3,12 @@ import logging
 from aiogram import Bot, Dispatcher, types, executor, filters
 
 from src.config import config
-from src.data.data import DataWorker
+from src.data.data_worker import DataWorker
 from src.horoscope_generator.horoscope_image import HoroscopeImageCreator
 from src.horoscope_generator.horoscope_list import HoroscopeList
 
 # Configure logging
-logging.basicConfig(level=logging.DEBUG)
+logging.basicConfig(level=logging.INFO)
 
 # Initialize bot and dispatcher
 bot = Bot(token=config.TELEGRAM_TOKEN)

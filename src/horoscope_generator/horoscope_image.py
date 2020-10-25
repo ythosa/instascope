@@ -10,7 +10,7 @@ from bs4 import BeautifulSoup
 from saya import Vk
 
 from src.config import config
-from src.data.data import DataWorker
+from src.data.data_worker import DataWorker
 from src.horoscope_generator.horoscope import Horoscope
 from src.horoscope_generator.horoscope_list import HoroscopeList
 
