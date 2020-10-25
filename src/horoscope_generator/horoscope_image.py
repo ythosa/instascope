@@ -24,9 +24,15 @@ class HoroscopeImageCreator:
         self._dataWorker = data_worker
         self.public_pages = config.get_public_pages()
 
-    def create(self, name: str = "pic.png", sign: str = "libra"):
+    def create(self, horoscope_picture_path: str = "pic.png", sign: str = "libra"):
+        """
+        Creates horoscope picture with title (sign) horoscope for this sign and meme
+        :param horoscope_picture_path:
+        :param sign:
+        :return:
+        """
         # Parse content
-        (title, description) = self.get_horoscope(sign, config.HOROSCOPE_GENERATOR_URL)
+        (title, description) = self._get_horoscope(sign, config.HOROSCOPE_GENERATOR_URL)
 
         meme_path = 'meme.png'
         self._get_meme(meme_path)
@@ -53,13 +59,16 @@ class HoroscopeImageCreator:
             (width // 2 - w1 // 2, start_height + h + (470 - h1) // 2),
             formatted_description, font=FONT, fill="#f8f8f2", align="center")
         back.paste(meme, (90, 930))
-        back.save(name)
-        if name != meme_path:
+
+        back.save(horoscope_picture_path)
+        if horoscope_picture_path != meme_path:
             os.remove(meme_path)
 
     def _get_meme(self, meme_path: str):
         """
         Gets random picture from random public page and writes it in the file.
+        :param meme_path:
+        :return:
         """
         choiced_public = choice(self.public_pages)
         vk = Vk(token=config.VK_TOKEN)
@@ -85,7 +94,13 @@ class HoroscopeImageCreator:
             with open(meme_path, "wb") as f:
                 f.write(content)
 
-    def get_horoscope(self, sign: str, url: str) -> Horoscope:
+    def _get_horoscope(self, sign: str, url: str) -> Horoscope:
+        """
+        Returns horoscope for passed sign
+        :param sign:
+        :param url:
+        :return:
+        """
         if not self.horoscope_list.is_contains(sign):
             raise ValueError("passed symbol must be one of horoscope symbols")
 

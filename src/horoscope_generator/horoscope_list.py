@@ -1,7 +1,6 @@
 from typing import List
 
 from src.config import config
-from src.horoscope_generator.horoscope import Horoscope
 from src.horoscope_generator.horoscope_sign import HoroscopeSign
 
 
