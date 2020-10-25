@@ -1,6 +1,5 @@
 import os
 import re
-from collections import namedtuple
 from random import randint, choice
 from textwrap import wrap
 from urllib.request import urlopen
@@ -20,19 +19,10 @@ FONT = ImageFont.truetype(config.FONT_PATH, 32 + 16)
 
 
 class HoroscopeImageCreator:
-    public_page = namedtuple('public', ['owner_id', 'album_id'])
-    public_pages = [
-        # List albums of memes
-        public_page(-45745333, '262436923'),
-        public_page(-45745333, '262436923'),
-        public_page(-176864224, 'wall'),
-        public_page(-29606875, 'wall'),
-        public_page(-144918406, 'wall')
-    ]
-
     def __init__(self, horoscope_list: HoroscopeList, data_worker: DataWorker):
         self.horoscope_list = horoscope_list
         self._dataWorker = data_worker
+        self.public_pages = config.get_public_pages()
 
     def create(self, name="pic.png", sign="libra"):
         # Parse content

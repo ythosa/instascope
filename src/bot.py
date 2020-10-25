@@ -3,7 +3,6 @@ import logging
 from aiogram import Bot, Dispatcher, types, executor, filters
 
 from src.config import config
-from src.config.config import CONFIG_FILE_PATH
 from src.data.data import DataWorker
 from src.horoscope_generator.horoscope_image import HoroscopeImageCreator
 from src.horoscope_generator.horoscope_list import HoroscopeList
@@ -20,7 +19,6 @@ dataWorker = DataWorker()
 
 # Init horoscope_list
 horoscope_list = HoroscopeList()
-horoscope_list.configure_from_yml(CONFIG_FILE_PATH)
 
 # Init horoscope image creator
 horoscope_image_creator = HoroscopeImageCreator(horoscope_list, dataWorker)
