@@ -21,7 +21,7 @@ FONT = ImageFont.truetype(config.FONT_PATH, 32 + 16)
 class HoroscopeImageCreator:
     def __init__(self, horoscope_list: HoroscopeList, data_worker: DataWorker):
         self.horoscope_list = horoscope_list
-        self._dataWorker = data_worker
+        self._data_worker = data_worker
         self.public_pages = config.get_public_pages()
 
     def create(self, horoscope_picture_path: str = "pic.png", sign: str = "libra"):
@@ -106,7 +106,7 @@ class HoroscopeImageCreator:
 
         sign = self.horoscope_list.get_en_translate_of_sign(sign)
 
-        horoscope = self._dataWorker.get_horoscope_for_sign(sign)
+        horoscope = self._data_worker.get_horoscope_for_sign(sign)
         if horoscope is not None:
             sign = self.horoscope_list.get_ru_translate_of_sign(sign)
             return Horoscope(str(sign).capitalize(), horoscope)
@@ -116,7 +116,7 @@ class HoroscopeImageCreator:
         soup = str(soup.find('p'))[3:-4]
 
         horoscope = "".join(re.split(r"([!?.]+)", soup, 3)[:4])
-        self._dataWorker.update_sign_horoscope(sign, horoscope)
+        self._data_worker.update_sign_horoscope(sign, horoscope)
         sign = self.horoscope_list.get_ru_translate_of_sign(sign)
 
         return Horoscope(str(sign).capitalize(), horoscope)

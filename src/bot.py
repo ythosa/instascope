@@ -8,20 +8,15 @@ from src.horoscope_generator.horoscope_image import HoroscopeImageCreator
 from src.horoscope_generator.horoscope_list import HoroscopeList
 
 # Configure logging
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.DEBUG)
 
 # Initialize bot and dispatcher
 bot = Bot(token=config.TELEGRAM_TOKEN)
 dp = Dispatcher(bot)
 
-# Init data worker
-dataWorker = DataWorker()
-
-# Init horoscope_list
-horoscope_list = HoroscopeList()
-
-# Init horoscope image creator
-horoscope_image_creator = HoroscopeImageCreator(horoscope_list, dataWorker)
+data_worker = DataWorker()  # Init data worker
+horoscope_list = HoroscopeList()  # Init horoscope_list
+horoscope_image_creator = HoroscopeImageCreator(horoscope_list, data_worker)  # Init horoscope image creator
 
 
 @dp.message_handler(commands=['start', 'help'])
