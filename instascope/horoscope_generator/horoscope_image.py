@@ -9,10 +9,9 @@ from PIL import Image, ImageDraw, ImageFont
 from bs4 import BeautifulSoup
 from saya import Vk
 
-from src.config import config
-from src.data.data_worker import DataWorker
-from src.horoscope_generator.horoscope import Horoscope
-from src.horoscope_generator.horoscope_list import HoroscopeList
+from instascope.config import config
+from instascope.data import DataWorker
+from instascope.horoscope_generator import Horoscope, HoroscopeList
 
 TITLE_FONT = ImageFont.truetype(config.FONT_PATH, 128)
 FONT = ImageFont.truetype(config.FONT_PATH, 32 + 16)

@@ -2,10 +2,9 @@ import logging
 
 from aiogram import Bot, Dispatcher, types, executor, filters
 
-from src.config import config
-from src.data.data_worker import DataWorker
-from src.horoscope_generator.horoscope_image import HoroscopeImageCreator
-from src.horoscope_generator.horoscope_list import HoroscopeList
+from instascope.config import config
+from instascope.data import DataWorker
+from instascope.horoscope_generator import HoroscopeImageCreator, HoroscopeList
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -56,7 +55,6 @@ async def send_horoscope(message: types.Message, regexp_command):
         return
 
     picture_path = f"./_results/_{sign}.png"
-
     horoscope_image_creator.create(picture_path, sign)
 
     await message.reply_document(open(picture_path, 'rb'))

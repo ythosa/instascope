@@ -1,4 +1,4 @@
-from src.horoscope_generator.horoscope import Horoscope
+from instascope.horoscope_generator import Horoscope
 
 
 class HoroscopeSign:
