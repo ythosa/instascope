@@ -63,44 +63,33 @@ async def send_horoscope(message: types.Message, regexp_command):
     await message.reply_document(open(picture_path, 'rb'))
 
 
-# Use multiple registrators. Handler will execute when one of the filters is OK
-@dp.callback_query_handler(text='no')  # if cb.data == 'no'
-@dp.callback_query_handler(text='yes')  # if cb.data == 'yes'
+@dp.callback_query_handler(text='horoscope_taurus')
+@dp.callback_query_handler(text='horoscope_aries')
+@dp.callback_query_handler(text='horoscope_gemini')
+@dp.callback_query_handler(text='horoscope_cancer')
+@dp.callback_query_handler(text='horoscope_leo')
+@dp.callback_query_handler(text='horoscope_libra')
+@dp.callback_query_handler(text='horoscope_sagittarius')
+@dp.callback_query_handler(text='horoscope_capricorn')
+@dp.callback_query_handler(text='horoscope_aquarius')
+@dp.callback_query_handler(text='horoscope_pisces')
+@dp.callback_query_handler(text='horoscope_virgo')
+@dp.callback_query_handler(text='horoscope_scorpio')
 async def inline_kb_answer_callback_handler(query: types.CallbackQuery):
-    answer_data = query.data
-    # always answer callback queries, even if you have nothing to say
-    await query.answer(f'You answered with {answer_data!r}')
+    sign = query.data.split('_')[1]
+    if not horoscope_list.is_contains(sign):
+        await query.answer('Invalid sign')
+        return
 
-    if answer_data == 'yes':
-        text = 'Great, me too!'
-    elif answer_data == 'no':
-        text = 'Oh no...Why so?'
-    else:
-        text = f'Unexpected callback data {answer_data!r}!'
+    picture_path = f"./instascope/_results/_{sign}.png"
+    horoscope_image_creator.create(picture_path, sign)
 
-    await bot.send_message(query.from_user.id, text)
+    await bot.send_document(query.from_user.id, open(picture_path, 'rb'))
 
 
 @dp.message_handler(commands='horoscope')
 async def start_cmd_handler(message: types.Message):
     keyboard_markup = types.InlineKeyboardMarkup(row_width=3)
-    # default row_width is 3, so here we can omit it actually
-    # kept for clearness
-
-    horoscope_emoji = {
-        'taurus': '♉',
-        'aries': '♈',
-        'gemini': '♊',
-        'cancer': '♋',
-        'leo': '♌',
-        'libra': '♎',
-        'sagittarius': '♐',
-        'capricorn': '♑',
-        'aquarius': '♒',
-        'pisces': '♓',
-        'virgo': '♍',
-        'scorpio': '♏',
-    }
 
     text_and_data = [(s.emoji, f'horoscope_{s.en_translate}') for s in horoscope_list.get_horoscope_signs()]
 
