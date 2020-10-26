@@ -19,8 +19,11 @@ def _parse_yaml() -> dict:
 
 def get_horoscope_signs() -> List[HoroscopeSign]:
     horoscope_signs: List[HoroscopeSign] = []
-    for ru, en in dict(CONFIG['signs']).items():
-        horoscope_signs.append(HoroscopeSign(ru, en))
+    for ru, bio in dict(CONFIG['signs']).items():
+        bio = dict(bio)
+        en = bio['named']
+        emoji = bio['emoji']
+        horoscope_signs.append(HoroscopeSign(ru, en, emoji))
 
     return horoscope_signs
 

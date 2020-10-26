@@ -63,5 +63,56 @@ async def send_horoscope(message: types.Message, regexp_command):
     await message.reply_document(open(picture_path, 'rb'))
 
 
+# Use multiple registrators. Handler will execute when one of the filters is OK
+@dp.callback_query_handler(text='no')  # if cb.data == 'no'
+@dp.callback_query_handler(text='yes')  # if cb.data == 'yes'
+async def inline_kb_answer_callback_handler(query: types.CallbackQuery):
+    answer_data = query.data
+    # always answer callback queries, even if you have nothing to say
+    await query.answer(f'You answered with {answer_data!r}')
+
+    if answer_data == 'yes':
+        text = 'Great, me too!'
+    elif answer_data == 'no':
+        text = 'Oh no...Why so?'
+    else:
+        text = f'Unexpected callback data {answer_data!r}!'
+
+    await bot.send_message(query.from_user.id, text)
+
+
+@dp.message_handler(commands='horoscope')
+async def start_cmd_handler(message: types.Message):
+    keyboard_markup = types.InlineKeyboardMarkup(row_width=3)
+    # default row_width is 3, so here we can omit it actually
+    # kept for clearness
+
+    horoscope_emoji = {
+        'taurus': '♉',
+        'aries': '♈',
+        'gemini': '♊',
+        'cancer': '♋',
+        'leo': '♌',
+        'libra': '♎',
+        'sagittarius': '♐',
+        'capricorn': '♑',
+        'aquarius': '♒',
+        'pisces': '♓',
+        'virgo': '♍',
+        'scorpio': '♏',
+    }
+
+    text_and_data = [(s.emoji, f'horoscope_{s.en_translate}') for s in horoscope_list.get_horoscope_signs()]
+
+    for i in range(0, len(text_and_data) // 4 + 1):
+        row_btns = []
+        for j in range(i, i+3):
+            text, data = text_and_data[j]
+            row_btns.append(types.InlineKeyboardButton(text, callback_data=data))
+        keyboard_markup.row(*row_btns)
+
+    await message.reply("Choose horoscope sign!", reply_markup=keyboard_markup)
+
+
 if __name__ == "__main__":
     executor.start_polling(dp, skip_updates=True)

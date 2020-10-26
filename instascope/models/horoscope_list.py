@@ -25,6 +25,9 @@ class HoroscopeList:
 
         return False
 
+    def get_horoscope_signs(self) -> List[HoroscopeSign]:
+        return self._sign_list
+
     def get_ru_translate_of_sign(self, sign_name: str) -> str:
         """
         Returns russian translate of passed sign_name

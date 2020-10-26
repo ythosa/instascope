@@ -1,16 +1,40 @@
 signs:
-  телец: taurus
-  овен: aries
-  близнецы: gemini
-  рак: cancer
-  лев: leo
-  весы: libra
-  стрелец: sagittarius
-  козерог: capricorn
-  водолей: aquarius
-  рыбы: pisces
-  дева: virgo
-  скорпион: scorpio
+  телец:
+    named: taurus
+    emoji: ♉
+  овен:
+    named: aries
+    emoji: ♈
+  близнецы:
+    named: gemini
+    emoji: ♊
+  рак:
+    named: cancer
+    emoji: ♋
+  лев:
+    named: leo
+    emoji: ♌
+  весы:
+    named: libra
+    emoji: ♎
+  стрелец:
+    named: sagittarius
+    emoji: ♐
+  козерог:
+    named: capricorn
+    emoji: ♑
+  водолей:
+    named: aquarius
+    emoji: ♒
+  рыбы:
+    named: pisces
+    emoji: ♓
+  дева:
+    named: virgo
+    emoji: ♍
+  скорпион:
+    named: scorpio
+    emoji: ♏
 
 public_pages:
   4ch:
