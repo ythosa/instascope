@@ -12,11 +12,7 @@
 ## Install
 -   Download [python 3.7 or high](https://python.org/download)
 -   Clone this repo: `git clone https://github.com/Ythosa/instascope`
--   Install dependencies:
-    -   `pip install saya`
-    -   `pip install pillow`
-    -   `pip install beautifulsoup4`
-    -   `pip install python-telegram-bot`
+-   Install dependencies: `pip install -r requirements txt`
 -   Run: `python -m main.py`
 
 

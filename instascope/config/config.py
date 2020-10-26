@@ -2,7 +2,13 @@ from typing import List
 
 import yaml
 
-from instascope.horoscope_generator import HoroscopeSign, PublicPage
+from instascope.models import HoroscopeSign, PublicPage
+
+VK_TOKEN = "99a11d3599a11d3599a11d354099ce5222999a199a11d35c78d50e3779b82feb9455cee"
+TELEGRAM_TOKEN = "1085045815:AAHYrjT04blrMpTlNke6wJCXqVqHbmkoReg"
+HOROSCOPE_GENERATOR_URL = "https://1001goroskop.ru/?znak="
+FONT_PATH = "/home/ythosa/Projects/instascope/fonts/DroidSans.ttf"
+CONFIG_FILE_PATH = "/home/ythosa/Projects/instascope/instascope/config/config.yaml"
 
 
 def _parse_yaml() -> dict:
@@ -29,9 +35,3 @@ def get_public_pages() -> List[PublicPage]:
 
 
 CONFIG = _parse_yaml()
-VK_TOKEN = "99a11d3599a11d3599a11d354099ce5222999a199a11d35c78d50e3779b82feb9455cee"
-TELEGRAM_TOKEN = "1085045815:AAHYrjT04blrMpTlNke6wJCXqVqHbmkoReg"
-HOROSCOPE_GENERATOR_URL = "https://1001goroskop.ru/?znak="
-FONT_PATH = "/home/ythosa/Projects/instascope/fonts/DroidSans.ttf"
-DATA_FILE = "/instascope/data/data_file.json"
-CONFIG_FILE_PATH = "/instascope/config/config.yaml"

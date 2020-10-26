@@ -1,7 +1,7 @@
 from typing import List
 
 from instascope.config import config
-from instascope.horoscope_generator import HoroscopeSign
+from instascope.models import HoroscopeSign
 
 
 class HoroscopeList:

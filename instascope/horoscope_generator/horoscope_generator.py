@@ -1,5 +1,6 @@
 import os
 import re
+import sys
 from random import randint, choice
 from textwrap import wrap
 from urllib.request import urlopen
@@ -11,13 +12,13 @@ from saya import Vk
 
 from instascope.config import config
 from instascope.data import DataWorker
-from instascope.horoscope_generator import Horoscope, HoroscopeList
+from instascope.models import Horoscope, HoroscopeList
 
 TITLE_FONT = ImageFont.truetype(config.FONT_PATH, 128)
 FONT = ImageFont.truetype(config.FONT_PATH, 32 + 16)
 
 
-class HoroscopeImageCreator:
+class HoroscopeGenerator:
     def __init__(self, horoscope_list: HoroscopeList, data_worker: DataWorker):
         self.horoscope_list = horoscope_list
         self._data_worker = data_worker

@@ -4,7 +4,8 @@ from aiogram import Bot, Dispatcher, types, executor, filters
 
 from instascope.config import config
 from instascope.data import DataWorker
-from instascope.horoscope_generator import HoroscopeImageCreator, HoroscopeList
+from instascope.horoscope_generator import HoroscopeGenerator
+from instascope.models import HoroscopeList
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -15,7 +16,9 @@ dp = Dispatcher(bot)
 
 data_worker = DataWorker()  # Init data worker
 horoscope_list = HoroscopeList()  # Init horoscope_list
-horoscope_image_creator = HoroscopeImageCreator(horoscope_list, data_worker)  # Init horoscope image creator
+
+# Init horoscope image creator
+horoscope_image_creator = HoroscopeGenerator(horoscope_list, data_worker)
 
 
 @dp.message_handler(commands=['start', 'help'])
@@ -54,7 +57,7 @@ async def send_horoscope(message: types.Message, regexp_command):
         await message.reply('Invalid sign')
         return
 
-    picture_path = f"./_results/_{sign}.png"
+    picture_path = f"./instascope/_results/_{sign}.png"
     horoscope_image_creator.create(picture_path, sign)
 
     await message.reply_document(open(picture_path, 'rb'))
