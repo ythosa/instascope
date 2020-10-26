@@ -95,7 +95,7 @@ async def start_cmd_handler(message: types.Message):
 
     for i in range(0, len(text_and_data) // 4 + 1):
         row_btns = []
-        for j in range(i, i+3):
+        for j in range(i * 3, i * 3 + 3):
             text, data = text_and_data[j]
             row_btns.append(types.InlineKeyboardButton(text, callback_data=data))
         keyboard_markup.row(*row_btns)
