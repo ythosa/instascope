@@ -28,9 +28,13 @@ async def send_welcome(message: types.Message):
     :param message:
     :return:
     """
-    await message.reply("Write </help> to get some information.\n"
-                        "Write </horoscope_{some_sign}> to get horoscope for this sign.\n"
-                        "Write </signs> to get list of all signs.")
+    await message.reply("Instascope is bot - generator of horoscopes!\n\n"
+                        "You can:\n"
+                        "\t\t- write /help to get some information;\n"
+                        "\t\t- write /horoscope to get horoscope for any sign;\n"
+                        "\t\t- write /horoscope_{some_sign} - to get horoscope for this sign;\n"
+                        "\t\t- write /signs to get list of all signs.\n\n"
+                        "Developer: Ythosa [ythosa.github.io]")
 
 
 @dp.message_handler(commands=['signs'])
@@ -76,6 +80,11 @@ async def send_horoscope(message: types.Message, regexp_command):
 @dp.callback_query_handler(text='horoscope_virgo')
 @dp.callback_query_handler(text='horoscope_scorpio')
 async def inline_kb_answer_callback_handler(query: types.CallbackQuery):
+    """
+    This handler will be called when user presses some button from `/horoscope` command
+    :param query:
+    :return:
+    """
     sign = query.data.split('_')[1]
     if not horoscope_list.is_contains(sign):
         await query.answer('Invalid sign')
