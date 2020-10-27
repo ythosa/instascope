@@ -12,8 +12,10 @@
 ## Install
 -   Download [python 3.7 or high](https://python.org/download)
 -   Clone this repo: `git clone https://github.com/Ythosa/instascope`
--   Install dependencies: `pip install -r requirements txt`
--   Run: `python -m main.py`
+-   Create virtual environment: `python -m venv env`
+-   Activate environment: `. ./env/bin/activate`
+-   Install dependencies: `pip3 install -r requirements txt`
+-   Start bot: `python3 ./instascope/bot.py`
 
 
 ## Description
