@@ -2,10 +2,10 @@ import logging
 
 from aiogram import Bot, Dispatcher, types, executor, filters
 
-from instascope.config import config
-from instascope.data import DataWorker
-from instascope.horoscope_generator import HoroscopeGenerator
-from instascope.models import HoroscopeList
+from config import config
+from data import DataWorker
+from horoscope_generator import HoroscopeGenerator
+from models import HoroscopeList
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -90,7 +90,7 @@ async def inline_kb_answer_callback_handler(query: types.CallbackQuery):
         await query.answer('Invalid sign')
         return
 
-    picture_path = f"./instascope/_results/_{sign}.png"
+    picture_path = f"./.results/_{sign}.png"
     horoscope_image_creator.create(picture_path, sign)
 
     await bot.send_document(query.from_user.id, open(picture_path, 'rb'))

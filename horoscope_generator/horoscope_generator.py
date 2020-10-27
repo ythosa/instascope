@@ -1,6 +1,5 @@
 import os
 import re
-import sys
 from random import randint, choice
 from textwrap import wrap
 from urllib.request import urlopen
@@ -10,9 +9,9 @@ from PIL import Image, ImageDraw, ImageFont
 from bs4 import BeautifulSoup
 from saya import Vk
 
-from instascope.config import config
-from instascope.data import DataWorker
-from instascope.models import Horoscope, HoroscopeList
+from config import config
+from data import DataWorker
+from models import Horoscope, HoroscopeList
 
 TITLE_FONT = ImageFont.truetype(config.FONT_PATH, 128)
 FONT = ImageFont.truetype(config.FONT_PATH, 32 + 16)

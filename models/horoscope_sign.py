@@ -1,4 +1,4 @@
-from instascope.models import Horoscope
+from models import Horoscope
 
 
 class HoroscopeSign:
