@@ -9,19 +9,19 @@ from PIL import Image, ImageDraw, ImageFont
 from bs4 import BeautifulSoup
 from saya import Vk
 
-from config import config
+from config import FONT_PATH, HOROSCOPE_GENERATOR_URL, VK_TOKEN, get_public_pages
 from data import DataWorker
 from models import Horoscope, HoroscopeList
 
-TITLE_FONT = ImageFont.truetype(config.FONT_PATH, 128)
-FONT = ImageFont.truetype(config.FONT_PATH, 32 + 16)
+TITLE_FONT = ImageFont.truetype(FONT_PATH, 128)
+FONT = ImageFont.truetype(FONT_PATH, 32 + 16)
 
 
 class HoroscopeGenerator:
     def __init__(self, horoscope_list: HoroscopeList, data_worker: DataWorker):
         self.horoscope_list = horoscope_list
         self._data_worker = data_worker
-        self.public_pages = config.get_public_pages()
+        self.public_pages = get_public_pages()
 
     def create(self, horoscope_picture_path: str = "pic.png", sign: str = "libra"):
         """
@@ -31,7 +31,7 @@ class HoroscopeGenerator:
         :return:
         """
         # Parse content
-        (title, description) = self._get_horoscope(sign, config.HOROSCOPE_GENERATOR_URL)
+        (title, description) = self._get_horoscope(sign, HOROSCOPE_GENERATOR_URL)
 
         meme_path = 'meme.png'
         self._get_meme(meme_path)
@@ -70,7 +70,7 @@ class HoroscopeGenerator:
         :return:
         """
         choiced_public = choice(self.public_pages)
-        vk = Vk(token=config.VK_TOKEN)
+        vk = Vk(token=VK_TOKEN)
         photos = vk.photos.get(  # Gets all photos from album
             owner_id=choiced_public.owner_id, album_id=choiced_public.album_id,
             rev=randint(0, 1), offset=randint(0, 500), count=1000)

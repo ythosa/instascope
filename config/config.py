@@ -7,6 +7,10 @@ from models import HoroscopeSign, PublicPage
 
 VK_TOKEN = os.getenv("VK_TOKEN")
 TELEGRAM_TOKEN = os.getenv("TELEGRAM_TOKEN")
+
+REDIS_HOST = os.getenv("REDIS_HOST")
+REDIS_PORT = os.getenv("REDIS_PORT")
+
 HOROSCOPE_GENERATOR_URL = "https://1001goroskop.ru/?znak="
 FONT_PATH = "./fonts/DroidSans.ttf"
 CONFIG_FILE_PATH = "./config/config.yaml"

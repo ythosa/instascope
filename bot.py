@@ -2,7 +2,7 @@ import logging
 
 from aiogram import Bot, Dispatcher, types, executor, filters
 
-from config import config
+from config import TELEGRAM_TOKEN
 from data import DataWorker
 from horoscope_generator import HoroscopeGenerator
 from models import HoroscopeList
@@ -11,7 +11,7 @@ from models import HoroscopeList
 logging.basicConfig(level=logging.INFO)
 
 # Initialize bot and dispatcher
-bot = Bot(token=config.TELEGRAM_TOKEN)
+bot = Bot(token=TELEGRAM_TOKEN)
 dp = Dispatcher(bot)
 
 data_worker = DataWorker()  # Init data worker

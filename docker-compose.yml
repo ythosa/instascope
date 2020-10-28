@@ -9,6 +9,10 @@ services:
     environment:
       - TELEGRAM_TOKEN=
       - VK_TOKEN=
+      - REDIS_HOST=instascope_db
+      - REDIS_PORT=6379
+    links:
+      - instascope_db
     depends_on:
       - instascope_db
     networks:
@@ -19,6 +23,11 @@ services:
     image: redis:6.0.9-alpine
     networks:
       - instascope
+    volumes:
+      - instascope_db:/data
+
+volumes:
+  instascope_db:
 
 networks:
   instascope:

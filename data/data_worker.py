@@ -4,10 +4,12 @@ from typing import Optional
 
 import redis
 
+from config import REDIS_HOST, REDIS_PORT
+
 
 class DataWorker:
     def __init__(self):
-        self._db = redis.Redis()
+        self._db = redis.Redis(host=REDIS_HOST, port=REDIS_PORT)
 
     def update_sign_horoscope(self, sign, horoscope):
         self._db.set(sign, json.dumps({
