@@ -14,7 +14,7 @@
 -   Clone this repo: `git clone https://github.com/Ythosa/instascope`
 -   Create virtual environment: `python -m venv env`
 -   Activate environment: `. ./env/bin/activate`
--   Install dependencies: `pip3 install -r requirements txt`
+-   Install dependencies: `pip3 install -r requirements.txt`
 -   Start bot: `python3 ./instascope/bot.py`
 
 

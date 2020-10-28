@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  instascope_bot:
+    build: ./
+    container_name: instascope_bot
+    command: python3 ./bot.py
+    restart: unless-stopped
+    environment:
+      - TELEGRAM_TOKEN=
+      - VK_TOKEN=
+    depends_on:
+      - instascope_db
+    networks:
+      - instascope
+
+  instascope_db:
+    container_name: instascope_db
+    image: redis:6.0.9-alpine
+    networks:
+      - instascope
+
+networks:
+  instascope:
+    driver: bridge

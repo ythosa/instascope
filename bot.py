@@ -61,7 +61,7 @@ async def send_horoscope(message: types.Message, regexp_command):
         await message.reply('Invalid sign')
         return
 
-    picture_path = f"./instascope/_results/_{sign}.png"
+    picture_path = f"./instascope/.results/_{sign}.png"
     horoscope_image_creator.create(picture_path, sign)
 
     await message.reply_document(open(picture_path, 'rb'))
